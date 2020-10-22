@@ -9,8 +9,8 @@ void foreach(void (*func)(int), struct Node *head) {
 struct Node *map(int (*func)(int), struct Node *head) {
   struct Node dummy = {0, 0};
   struct Node *new_tail = &dummy;
-  for (; head; head = head->next)
-    list_add_back(&new_tail->next, func(head->value));
+  for (; head; head = head->next, new_tail = new_tail->next)
+    list_add_front(&new_tail->next, func(head->value));
   return dummy.next;
 }
 
@@ -31,6 +31,7 @@ struct Node *iterate(int acc, int (*func)(int), unsigned repeats) {
   unsigned i;
   for (i = 0; i < repeats; ++i) {
     list_add_front(&new_tail->next, acc);
+    new_tail = new_tail->next;
     acc = func(acc);
   }
   return dummy.next;

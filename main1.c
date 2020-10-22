@@ -3,9 +3,8 @@
 
 int list_print_nth(struct Node *head, unsigned index) {
   struct Node *node = list_node_at(head, index);
-  if (!node) {
+  if (!node)
     return 0;
-  }
   printf("%uth element of the list is %d\n", index, node->value);
   return 1;
 }
