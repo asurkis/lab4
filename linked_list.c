@@ -1,4 +1,5 @@
 #include "linked_list.h"
+#include "higher_order.h"
 #include <stdlib.h>
 
 struct Node *list_create(int value) {
@@ -35,33 +36,29 @@ int list_get(struct Node *head, unsigned index) {
 }
 
 void list_free(struct Node *head) {
-  struct Node *iter = head;
-  while (iter) {
-    struct Node *prev = iter;
-    iter = iter->next;
+  while (head) {
+    struct Node *prev = head;
+    head = head->next;
     free(prev);
   }
 }
 
 unsigned list_length(struct Node *head) {
   unsigned result = 0;
-  struct Node *iter;
-  for (iter = head; iter; iter = iter->next)
-    result++;
+  for (; head; head = head->next)
+    ++result;
   return result;
 }
 
 struct Node *list_node_at(struct Node *head, unsigned index) {
-  struct Node *iter;
-  for (iter = head; iter && index; iter = iter->next)
+  for (; head && index; head = head->next)
     index--;
-  return iter;
+  return head;
 }
 
 int list_sum(struct Node *head) {
   int result = 0;
-  struct Node *iter;
-  for (iter = head; iter; iter = iter->next)
-    result += iter->value;
+  for (; head; head = head->next)
+    result += head->value;
   return result;
 }
